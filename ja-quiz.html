@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guess Ja Morant's Stat</title>
+  <style>
+body {
+  background-color: #12173F;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  padding: 30px;
+  margin: 0;
+}
+
+h1 {
+  color: #FDB927;
+  font-size: 2.5em;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 40px;
+}
+
+.question {
+  font-size: 1.5em;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.options {
+  margin-top: 30px;
+}
+
+.options button {
+  background-color: #5D76A9;
+  color: #fff;
+  padding: 15px 25px;
+  margin: 10px;
+  border: none;
+  font-size: 1.2em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  width: 250px;
+}
+
+.options button:hover {
+  background-color: #7B8DB9;
+  transform: scale(1.1);
+}
+
+.options button:active {
+  transform: scale(0.95);
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+#result.positive {
+  color: #00FF87;
+}
+
+#result.negative {
+  color: #FF4C4C;
+}
+
+footer {
+  margin-top: 50px;
+  color: #ccc;
+  font-size: 0.9em;
+}
+
+footer a {
+  color: #FDB927;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+button {
+  background-color: #FDB927;
+  color: #12173F;
+  font-size: 1.2em;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #e5a800;
+}
+
+  </style>
+</head>
+<body>
+
+  <h1>🏀 Guess Ja Morant's Stat!</h1>
+  <p class="question" id="question">Loading question...</p>
+  <div class="options" id="options"></div>
+  <p id="result"></p>
+
+  <button onclick="newQuestion()">Next Question</button>
+
+  <footer>
+    <p><a href="index.html">← Back to Main Page</a></p>
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        q: "How many NBA All-Star appearances has Ja Morant made?",
+        options: ["1", "2", "3"],
+        answer: "2"
+      },
+      {
+        q: "What year was Ja Morant drafted into the NBA?",
+        options: ["2018", "2019", "2020"],
+        answer: "2019"
+      },
+      {
+        q: "What is Ja Morant's career points per game average (approx)?",
+        options: ["22", "24", "26"],
+        answer: "24"
+      },
+      {
+        q: "Which team does Ja Morant play for?",
+        options: ["Memphis Grizzlies", "New York Knicks", "Chicago Bulls"],
+        answer: "Memphis Grizzlies"
+      },
+      {
+        q: "What was Ja Morant's draft pick number?",
+        options: ["1st", "2nd", "3rd"],
+        answer: "2nd"
+      },
+      { 
+        q: "Has Ja Morant won Rookie of the Year?",
+        options: ["Yes", "No"],
+        answer: "Yes"
+      }
+    ];
+
+    function newQuestion() {
+      const qIndex = Math.floor(Math.random() * questions.length);
+      const question = questions[qIndex];
+      document.getElementById("question").textContent = question.q;
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      question.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => {
+          if (option === question.answer) {
+            document.getElementById("result").textContent = "✅ Correct!";
+            document.getElementById("result").className = "positive";
+          } else {
+            document.getElementById("result").textContent = `❌ Nope! The correct answer is ${question.answer}.`;
+            document.getElementById("result").className = "negative";
+          }
+        };
+        optionsDiv.appendChild(btn);
+      });
+
+      document.getElementById("result").textContent = "";
+    }
+
+    newQuestion();
+  </script>
+
+</body>
+</html>
